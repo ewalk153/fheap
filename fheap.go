@@ -206,7 +206,8 @@ func (f *FibHeap) DequeueMin() *Entry {
 			/* Ensure that the list is long enough to hold an element of this
 			 * degree.
 			 */
-			for curr.degree > len(treeTable) {
+
+			for curr.degree >= len(treeTable) {
 				treeTable = append(treeTable, nil)
 			}
 

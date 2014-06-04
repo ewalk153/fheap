@@ -7,8 +7,8 @@ import (
 )
 
 const (
-	HEAP_ADD_SIZE int = 200000
-	HEAP_LOOP     int = 200000
+	HEAP_ADD_SIZE int = 20000
+	HEAP_LOOP     int = 20000
 )
 
 // Reference implementation of PriorityQueue, with float64 priority numbers
@@ -65,21 +65,20 @@ func randSetup() *rand.Rand {
 
 func BenchmarkFibPush(b *testing.B) {
 	r := randSetup()
-	h := FibHeap{}
 
 	for j := 0; j < b.N; j++ {
+		h := FibHeap{}
 		for i := 0; i < HEAP_ADD_SIZE; i++ {
-			s := Item{priority: r.Float64()}
-			h.Enqueue(s, s.priority)
+			h.Enqueue(0, r.Float64())
 		}
 	}
 }
 
 func BenchmarkPriorityPush(b *testing.B) {
 	r := randSetup()
-	pq := &PriorityQueue{}
-	heap.Init(pq)
 	for j := 0; j < b.N; j++ {
+		pq := &PriorityQueue{}
+		heap.Init(pq)
 		for i := 0; i < HEAP_ADD_SIZE; i++ {
 			s := Item{priority: r.Float64()}
 			heap.Push(pq, &s)
@@ -87,42 +86,13 @@ func BenchmarkPriorityPush(b *testing.B) {
 	}
 }
 
-// func BenchmarkFibPop(b *testing.B) {
-// 	r := randSetup()
-// 	h := FibHeap{}
-
-// 	s := Item{}
-// 	for i := 0; i < HEAP_SIZE; i++ {
-// 		h.Enqueue(s, r.Float64())
-// 	}
-// 	b.ResetTimer()
-// 	for i := 0; i < b.N; i++ {
-// 		h.DequeueMin()
-// 	}
-// }
-
-// func BenchmarkPriorityPop(b *testing.B) {
-// 	r := randSetup()
-// 	pq := &PriorityQueue{}
-// 	heap.Init(pq)
-// 	for i := 0; i < HEAP_SIZE; i++ {
-// 		s := Item{priority: r.Float64()}
-// 		heap.Push(pq, &s)
-// 	}
-// 	b.ResetTimer()
-// 	for i := 0; i < b.N; i++ {
-// 		heap.Pop(pq)
-// 	}
-// }
-
 func BenchmarkFibPushPop(b *testing.B) {
 	r := randSetup()
-	h := FibHeap{}
 
 	for j := 0; j < b.N; j++ {
+		h := FibHeap{}
 		for i := 0; i < HEAP_LOOP; i++ {
-			s := Item{}
-			h.Enqueue(s, r.Float64())
+			h.Enqueue(0, r.Float64())
 		}
 		for i := 0; i < HEAP_LOOP; i++ {
 			h.DequeueMin()
@@ -132,9 +102,9 @@ func BenchmarkFibPushPop(b *testing.B) {
 
 func BenchmarkPriorityPushPop(b *testing.B) {
 	r := randSetup()
-	pq := &PriorityQueue{}
-	heap.Init(pq)
 	for j := 0; j < b.N; j++ {
+		pq := &PriorityQueue{}
+		heap.Init(pq)
 		for i := 0; i < HEAP_LOOP; i++ {
 			s := Item{priority: r.Float64()}
 			heap.Push(pq, &s)

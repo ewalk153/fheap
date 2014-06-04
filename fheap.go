@@ -72,7 +72,7 @@ type Entry struct {
 }
 
 // NewEntry creates a new Entry element
-func newEntry(element interface{}, priority float64) *Entry {
+func (f *FibHeap) newEntry(element interface{}, priority float64) *Entry {
 	e := &Entry{
 		degree:   0,
 		marked:   false,
@@ -91,7 +91,8 @@ type FibHeap struct {
 
 func (f *FibHeap) Enqueue(element interface{}, priority float64) *Entry {
 	// f.checkPriority(priority)
-	result := newEntry(element, priority)
+
+	result := f.newEntry(element, priority)
 	f.min = mergeLists(f.min, result)
 	f.size++
 	return result

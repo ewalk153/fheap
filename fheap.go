@@ -52,6 +52,7 @@
  * dequeueMin to extract it.
  */
 
+// Package fheap implements the the Fibonacci Heap.
 package fheap
 
 import (
@@ -89,7 +90,7 @@ type FibHeap struct {
 }
 
 func (f *FibHeap) Enqueue(element interface{}, priority float64) *Entry {
-	f.checkPriority(priority)
+	// f.checkPriority(priority)
 	result := newEntry(element, priority)
 	f.min = mergeLists(f.min, result)
 	f.size++
@@ -103,12 +104,12 @@ func (f *FibHeap) Enqueue(element interface{}, priority float64) *Entry {
  * @param priority The user's specified priority.
  * @throws IllegalArgumentException If it is not valid.
  */
-func (f *FibHeap) checkPriority(priority float64) {
-	// not sure if is useful.
-	// Doublecheck because java code throws a runtime exception here
-	// if (Double.isNaN(priority))
-	//   throw new IllegalArgumentException(priority + " is invalid.");
-}
+// func (f *FibHeap) checkPriority(priority float64) {
+// 	// not sure if is useful.
+// 	// Doublecheck because java code throws a runtime exception here
+// 	// if (Double.isNaN(priority))
+// 	//   throw new IllegalArgumentException(priority + " is invalid.");
+// }
 
 /**
  * Utility function which, given two pointers into disjoint circularly-
@@ -361,7 +362,7 @@ func (f *FibHeap) DequeueMin() *Entry {
  *         priority, or if the argument is not a finite double.
  */
 func (f *FibHeap) DecreaseKey(e *Entry, newPriority float64) error {
-	f.checkPriority(newPriority)
+	// f.checkPriority(newPriority)
 	if newPriority > e.Priority {
 		return ErrorExceedsPriority
 	}
